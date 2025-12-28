@@ -1,57 +1,46 @@
 # Sentiment and Short-Horizon Returns (StockNet)
 
-This project studies whether **Twitter-derived sentiment** contains explanatory power for **short-horizon equity returns**, and how this relationship varies across **volatility regimes**. The analysis is exploratory and research-oriented, using panel data regression and regime-based comparisons.
+This project explores whether Twitter-derived sentiment helps explain short-horizon equity returns, and how this relationship changes across different volatility regimes.
 
 ---
 
 ## Dataset
 
-We use the **StockNet** dataset, which pairs two years of Twitter activity with aligned daily market data for **88 U.S. equities** across **nine sectors**.
+We use the StockNet dataset, which pairs two years of Twitter activity with daily market data for 88 U.S. equities across nine sectors. Tweets are aggregated into a daily sentiment measure, and market data includes short-horizon returns, recent realized volatility, and lagged returns.
 
-- **Text side:** Tweets are aggregated into a daily sentiment signal.
-- **Market side:** We use short-horizon returns, recent realized volatility, and lagged returns.
-
-The final cleaned dataset contains **10,000+ observations** (ticker–date panel).  
-The original cleaning script was lost, so the preprocessing steps are documented below.
+The dataset used in this project contains over 10,000 cleaned ticker–date observations.
 
 ---
 
-## Features Used
+## What I Did
 
-- `ticker`: equity identifier  
-- `date`: trading date  
-- `sent_weighted`: daily aggregated sentiment score  
-- `ret_5d`: forward 5-day return (target)  
-- `past_ret_5d`: lagged 5-day return  
-- `past_vol_5d`: realized volatility over the previous 5 days  
-
----
-
-## Data Preparation (Notebook)
-
-1. **Parsing and sorting**
-   - Convert `date` to datetime
-   - Sort by `ticker` and `date`
-
-2. **Filtering**
-   - Retain only the fields listed above
-   - Drop rows with missing values
-
-3. **Winsorization**
-   - All continuous variables are winsorized at the 1st and 99th percentiles to reduce the influence of outliers
-
-4. **Volatility regimes**
-   - Assets are grouped into `low`, `mid`, and `high` volatility regimes using terciles of `past_vol_5d`
-
-5. **Binning for visualization**
-   - Sentiment is rank-transformed and split into deciles for nonparametric analysis
+- Cleaned and filtered the StockNet dataset  
+- Aggregated sentiment at the daily level  
+- Constructed forward 5-day returns, lagged returns, and recent volatility measures  
+- Winsorized variables to reduce the influence of outliers  
+- Grouped observations into low-, mid-, and high-volatility regimes  
+- Ran regressions to test whether sentiment adds explanatory power beyond recent price dynamics  
+- Visualized return behavior across sentiment levels and volatility regimes  
 
 ---
 
-## Methodology
+## Tools
 
-### Regression Analysis
+- Python  
+- pandas  
+- numpy  
+- matplotlib  
+- statsmodels  
 
-We estimate OLS regressions with **HAC (Newey–West) standard errors** to account for heteroskedasticity and serial correlation induced by overlapping return horizons.
+---
 
-Baseline specification:
+## Notes
+
+This is an exploratory analysis intended for research and learning purposes, not a trading strategy.
+
+---
+
+## Author
+
+Indranil Biswas  
+Applied Mathematics, Stony Brook University
